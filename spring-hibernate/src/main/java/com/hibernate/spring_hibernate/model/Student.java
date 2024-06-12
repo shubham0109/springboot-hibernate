@@ -21,6 +21,12 @@ public class Student {
     @JoinTable(name="STUDENT_SUBJECT_JOIN", joinColumns = {@JoinColumn(name = "STUDENT_ID")}, inverseJoinColumns = {@JoinColumn(name = "SUBJECT_ID")})
     private List<Subject> subjects;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "student",  cascade = CascadeType.PERSIST)
+    private List<Book> books;
+
+    @OneToOne(mappedBy = "student")
+    private Contact contact;
+
 
     public Student(){
         super();
@@ -65,6 +71,18 @@ public class Student {
 
     public List<Subject> getAllSubject(){
         return subjects;
+    }
+
+    public void addBook(Book book){
+        books.add(book);
+    }
+
+    public List<Book> getAllBook(){
+        return books;
+    }
+
+    public void addContact(Contact contact){
+        this.contact = contact;
     }
 
 
